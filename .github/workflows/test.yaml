@@ -16,5 +16,4 @@ jobs:
 
       - run: |
           set -eux
-          echo |
-            {"item": { "${{ env.ATTACK_SURFACE }}" } }""
+          echo ${{ env.ATTACK_SURFACE }}
