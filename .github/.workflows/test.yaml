@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  job-0:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - run: |
+          set -eux
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "ATTACK_SURFACE<<$EOF" >> $GITHUB_ENV
+          cat attack_surface.txt >> $GITHUB_ENV
+          echo "" >> $GITHUB_ENV
+          echo "$EOF" >> $GITHUB_ENV
+
+      - run: |
+          set -eux
+          echo ${{ env.ATTACK_SURFACE }}

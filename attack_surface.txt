@@ -1,0 +1,24 @@
+
+*Daily CVE Report*
+
+PUBLIC+AUTHENTICATED attack surface images:
+* bitnami/postgresql :heavy_multiplication_x: 70 CVEs (13 fixable)
+* forallsecure/mayhem-analyze :heavy_multiplication_x: 54 CVEs (6 fixable)
+* forallsecure/mayhem-api :heavy_multiplication_x: 54 CVEs (6 fixable)
+* forallsecure/mayhem-web :heavy_multiplication_x: 53 CVEs (6 fixable)
+* prom/prometheus :heavy_check_mark:
+* registry :heavy_check_mark:
+
+Other images:
+* bitnami/minideb :heavy_multiplication_x: 58 CVEs (14 fixable)
+* bitnami/rabbitmq :heavy_multiplication_x: 63 CVEs (11 fixable)
+* busybox :heavy_check_mark:
+* coreos/kube-state-metrics :heavy_check_mark:
+* forallsecure/debian-buster :heavy_multiplication_x: 84 CVEs (26 fixable)
+* forallsecure/mayhem :heavy_check_mark:
+* forallsecure/sentry-cli :heavy_multiplication_x: 15 CVEs (15 fixable)
+* jimmidyson/configmap-reload :heavy_check_mark:
+* minio/minio :heavy_check_mark:
+* prom/node-exporter :heavy_check_mark:
+* rabbitmq-exporter :heavy_check_mark:
+* wrouesnel/postgres_exporter :heavy_check_mark:
