@@ -12,7 +12,7 @@ jobs:
 
       - run: |
           set -eux
-          echo ATTACK_SURFACE="$(cat attack_surface.txt)" >> $GITHUB_ENV
+          echo ATTACK_SURFACE="$(cat attack_surface.txt | jq -Rs '.')" >> $GITHUB_ENV
 
       - run: |
           set -eux
