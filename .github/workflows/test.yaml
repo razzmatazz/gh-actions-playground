@@ -10,7 +10,7 @@ jobs:
       - name: checkout
         uses: actions/checkout@v3
 
-      - run: mkdir -p /workdir/sca && cp attack_surface.txt /workdir/sca/attack_surface.txt
+      - run: mkdir -p ./workdir/sca && cp attack_surface.txt ./workdir/sca/attack_surface.txt
 
       - name: Download jq
         run: |
@@ -23,7 +23,7 @@ jobs:
       - name: Produce env.ATTACK_SURFACE_QUOTED
         run: |
           set -eux
-          echo ATTACK_SURFACE_QUOTED="$(cat /workdir/sca/attack_surface.txt | ./jq-linux64 -Rs '.')" >> $GITHUB_ENV
+          echo ATTACK_SURFACE_QUOTED="$(cat ./workdir/sca/attack_surface.txt | ./jq-linux64 -Rs '.')" >> $GITHUB_ENV
 
       - name: "Post to #engineering-feed"
         uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
