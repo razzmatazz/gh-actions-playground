@@ -24,6 +24,7 @@ jobs:
         run: |
           set -eux
           echo ATTACK_SURFACE_QUOTED="$(cat ./workdir/sca/attack_surface.txt | ./jq-linux64 -Rs '.')" >> $GITHUB_ENV
+        shell: bash
 
       - name: "Post to #engineering-feed"
         uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
