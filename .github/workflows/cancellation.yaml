@@ -1,0 +1,11 @@
+on:
+  push:
+    branches: ['main', 'feature']
+
+jobs:
+  job-0:
+    runs-on: ubuntu-22.04
+    steps:
+      run: echo step-0
+      run: sleep 300 # 5 minutes
+      run: echo step-1
