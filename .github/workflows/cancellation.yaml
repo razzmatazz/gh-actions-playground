@@ -6,7 +6,7 @@ on:
 # to avoid overloading build servers, but NOT do that for "main" & "release-*" ones
 concurrency:
   group: ${{ github.head_ref || github.ref_name }}
-  cancel-in-progress: ${{ github.ref_name != 'main' }}
+#  cancel-in-progress: ${{ github.ref_name != 'main' }}
 # cancel-in-progress: ${{ github.ref_name != 'main' && !startsWith(github.ref_name, 'release-') }}
 
 jobs:
