@@ -19,7 +19,7 @@ jobs:
     needs: job-0
     runs-on: ubuntu-22.04
     steps:
-      - run: sleep 90 # 90 seconds
+      - run: sleep 60
 
   job-2:
     needs: job-1
