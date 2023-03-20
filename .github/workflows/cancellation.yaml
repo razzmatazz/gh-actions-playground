@@ -25,4 +25,4 @@ jobs:
     needs: job-1
     runs-on: ubuntu-22.04
     steps:
-      - run: echo endx
+      - run: echo endy
