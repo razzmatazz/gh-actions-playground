@@ -19,7 +19,7 @@ jobs:
       - name: Produce env.ATTACK_SURFACE_QUOTED
         run: |
           set -eux
-          printf 'ATTACK_SURFACE_QUOTED="%s"' "$(cat ./workdir/sca/attack_surface.txt | jq -Rs '.')" >> $GITHUB_ENV
+          printf 'ATTACK_SURFACE_QUOTED=%s' "$(cat ./workdir/sca/attack_surface.txt | jq -Rs '.')" >> $GITHUB_ENV
 
       - name: "Post to #engineering-feed"
         uses: slackapi/slack-github-action@007b2c3c751a190b6f0f040e47ed024deaa72844 # v1.23.0
