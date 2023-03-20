@@ -11,8 +11,11 @@ jobs:
         uses: actions/checkout@v3
 
       - run: |
+          curl -Lqs https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 --output jq-linux64
+
+      - run: |
           set -eux
-          echo ATTACK_SURFACE="$(echo "123\n123\n123\n" | jq -Rs '.')" >> $GITHUB_ENV
+          echo ATTACK_SURFACE="$(cat x | ./jq-linux64 -Rs '.')" >> $GITHUB_ENV
 
       - run:
           echo ${{ env.ATTACK_SURFACE }}
