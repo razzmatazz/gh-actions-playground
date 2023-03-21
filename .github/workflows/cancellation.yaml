@@ -7,6 +7,7 @@ concurrency:
   # while on any other branch builds will be serialized and ones in progress may
   # be cancelled if there are newer commits
   group: ${{ format('{0}-{1}', github.workflow, github.ref_name == 'main' && github.run_id || github.head_ref || github.ref_name) }}
+  cancel-in-progress: true
 
 jobs:
   job-0:
