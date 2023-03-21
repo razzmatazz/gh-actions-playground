@@ -2,8 +2,6 @@ on:
   push:
     branches: ['main', 'feature']
 
-###
-
 concurrency:
   # this will enable all builds on `main` run concurrently and not be cancelled
   # while on any other branch builds will be serialized and ones in progress may
