@@ -6,7 +6,7 @@ concurrency:
   # this will enable all builds on `main` run concurrently and not be cancelled
   # while on any other branch builds will be serialized and ones in progress may
   # be cancelled if there are newer commits
-  group: ${{ format("{0}-{1}", github.workflow, github.ref_name == 'main' && github.run_id || github.head_ref || github.ref_name) }}
+  group: ${{ format('{0}-{1}', github.workflow, github.ref_name == 'main' && github.run_id || github.head_ref || github.ref_name) }}
 
 jobs:
   job-0:
