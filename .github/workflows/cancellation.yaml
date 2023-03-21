@@ -2,12 +2,11 @@ on:
   push:
     branches: ['main', 'feature']
 
-# we want to cancel builds for old commits on feature branches
-# to avoid overloading build servers, but NOT do that for "main" & "release-*" ones
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
-#  cancel-in-progress: ${{ github.ref_name != 'main' }}
-# cancel-in-progress: ${{ github.ref_name != 'main' && !startsWith(github.ref_name, 'release-') }}
+  # this will enable all builds on `main` run concurrently and not be cancelled
+  # while on any other branch builds will be serialized and ones in progress may
+  # be cancelled if there are newer commits
+  group: ${{ format("{0}-{1}", github.workflow, github.ref_name == 'main' && github.run_id || github.head_ref || github.ref_name) }}
 
 jobs:
   job-0:
