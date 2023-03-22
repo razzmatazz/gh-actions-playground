@@ -20,10 +20,9 @@ jobs:
     needs: [job-0, job-1]
     runs-on: ubuntu-22.04
     if: always()
-    strategy:
-      matrix:
-        job: ${{ needs }}
     steps:
-      - name: Check for dependent job failure(s)
+      - name: Check tests for failure
         run: exit 1
-        if: ${{ matrix.job.result == 'failure' || matrix.job.result == 'cancelled' }}
+        if: |
+          needs.job-0.result == 'failure' ||
+          needs.job-1.result == 'failure'
