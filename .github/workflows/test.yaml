@@ -13,8 +13,6 @@ jobs:
     steps:
       - run: echo job-1
 
-      # simulate job failure
-      - run: exit 1
 
   aggregate-job:
     needs: [job-0, job-1]
