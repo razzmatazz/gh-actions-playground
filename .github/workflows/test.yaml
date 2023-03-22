@@ -1,6 +1,6 @@
 on:
   push:
-    branches: ['main', 'feature']
+    branches: ['main']
 
 jobs:
   job-0:
@@ -13,8 +13,12 @@ jobs:
     steps:
       - run: echo job-1
 
+      # simulate job failure
+      - run: exit 1
+
   aggregate-job:
     needs: [job-0, job-1]
     runs-on: ubuntu-22.04
+    if: always()
     steps:
       - run: echo aggregate-job
