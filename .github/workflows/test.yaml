@@ -22,3 +22,9 @@ jobs:
     if: always()
     steps:
       - run: echo aggregate-job
+
+      - name: Check for dependent test failure(s)
+      - run: exit 1
+        if: |
+          needs.job-0.result == 'failure' ||
+          needs.job-1.result == 'failure'
