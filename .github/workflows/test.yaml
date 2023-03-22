@@ -20,11 +20,10 @@ jobs:
     needs: [job-0, job-1]
     runs-on: ubuntu-22.04
     if: always()
+    strategy:
+      matrix:
+        job: ${{ needs }}
     steps:
-      - run: echo aggregate-job
-
-      - name: Check for dependent test failure(s)
+      - name: Check for dependent job failure(s)
         run: exit 1
-        if: |
-          needs.job-0.result == 'failure' ||
-          needs.job-1.result == 'failure'
+        if: ${{ matrix.job.result == 'failure' || matrix.job.result == 'cancelled' }}
