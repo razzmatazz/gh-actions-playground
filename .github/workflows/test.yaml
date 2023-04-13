@@ -12,15 +12,3 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - run: echo job-1
-
-
-  aggregate-job:
-    needs: [job-0, job-1]
-    runs-on: ubuntu-22.04
-    if: always()
-    steps:
-      - name: Check tests for failure
-        run: exit 1
-        if: |
-          needs.job-0.result == 'failure' ||
-          needs.job-1.result == 'failure'
