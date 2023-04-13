@@ -1,0 +1,22 @@
+name: "Deploy / staging.forallsecure.com"
+
+on:
+  workflow_dispatch:
+
+  workflow_call:
+    workflows: [Test]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy-staging-forallsecure-com-on-success:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-22.04
+    steps:
+      - run: echo success
+
+  deploy-staging-forallsecure-com-on-failure:
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-22.04
+    steps:
+      - run: echo failure
