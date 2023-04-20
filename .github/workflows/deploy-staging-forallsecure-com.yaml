@@ -10,15 +10,7 @@ on:
 
 jobs:
   deploy-staging-forallsecure-com-on-success:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-22.04
     steps:
       - run: echo success
-      - run: echo head-sha ${{ github.event.workflow_run.head_sha || 'main' }}
-
-  deploy-staging-forallsecure-com-on-failure:
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    runs-on: ubuntu-22.04
-    steps:
-      - run: echo failure
       - run: echo head-sha ${{ github.event.workflow_run.head_sha || 'main' }}
