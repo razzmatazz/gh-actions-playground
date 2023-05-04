@@ -1,0 +1,52 @@
+name: "_Build Mayhem"
+
+on:
+  workflow_call:
+    inputs:
+      mcode-branch:
+        type: string
+        required: true
+        description: "mcode branch"
+      mcode-commit-sha:
+        type: string
+        description: "mcode commit SHA (optional)"
+
+jobs:
+  component-affected:
+    runs-on: [all-purpose, docker]
+    env:
+      ON_MAIN_OR_RELEASE_BRANCH: ${{ inputs.mcode-branch == 'main' || startsWith(inputs.mcode-branch, 'release-') }}
+    outputs:
+      analyze : ${{ env.ON_MAIN_OR_RELEASE_BRANCH   == 'true'
+                    || steps.filter.outputs.analyze == 'true' }}
+
+      api     : ${{ env.ON_MAIN_OR_RELEASE_BRANCH   == 'true'
+                    || steps.filter.outputs.api     == 'true' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: "${{ inputs.mcode-commit-sha || inputs.mcode-branch }}"
+
+      - name: Resolve affected components
+        uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50 # v2
+        id: filter
+        with:
+          filters: |
+            analyze:
+              - 'analyze/**'
+            api:
+              - 'api/**'
+            cli:
+              - 'cli/**'
+            core:
+              - 'core/**'
+            docs:
+              - 'docs/**'
+            mbot:
+              - 'mbot/**'
+            web:
+              - 'web/**'
+            mchart:
+              - 'mchart/**'

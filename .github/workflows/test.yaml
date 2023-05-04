@@ -1,16 +1,11 @@
 name: Test
 
-on:
-  push:
-    branches: ['main']
+on: push
 
 jobs:
   job-0:
-    runs-on: ubuntu-22.04
-    steps:
-      - run: echo job-0
-
-  job-1:
-    runs-on: ubuntu-22.04
-    steps:
-      - run: echo job-1
+    using: .github/workflows/_build-mayhem.yaml
+    secrets: inherit
+    with:
+      mcode-branch: "${{ github.head_ref || github.ref_name }}"
+      mcode-commit-sha: "${{ github.event.workflow_run.head_sha }}"
