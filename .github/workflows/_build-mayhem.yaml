@@ -39,7 +39,7 @@ jobs:
           ref: "${{ inputs.mcode-commit-sha || inputs.mcode-branch }}"
 
       - name: Resolve affected components
-        if: ${{ github.event.before }}
+        if: ${{ github.event.before || env.ON_MAIN_OR_RELEASE_BRANCH == 'true' }}
         uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50 # v2
         id: filter
         with:
