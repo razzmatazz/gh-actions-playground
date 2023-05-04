@@ -42,7 +42,7 @@ jobs:
       - run: echo "env.ON_MAIN_OR_RELEASE_BRANCH=${{ env.ON_MAIN_OR_RELEASE_BRANCH == 'true' }}"
 
       - name: Resolve affected components
-        if: ${{ github.event.before || env.ON_MAIN_OR_RELEASE_BRANCH == 'true' }}
+        if: ${{ env.ON_MAIN_OR_RELEASE_BRANCH != 'true' && github.event.before }}
         uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50 # v2
         id: filter
         with:
