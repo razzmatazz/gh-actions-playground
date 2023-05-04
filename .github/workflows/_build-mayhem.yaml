@@ -38,15 +38,3 @@ jobs:
               - 'analyze/**'
             api:
               - 'api/**'
-            cli:
-              - 'cli/**'
-            core:
-              - 'core/**'
-            docs:
-              - 'docs/**'
-            mbot:
-              - 'mbot/**'
-            web:
-              - 'web/**'
-            mchart:
-              - 'mchart/**'
