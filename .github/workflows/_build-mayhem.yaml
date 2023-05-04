@@ -13,7 +13,7 @@ on:
 
 jobs:
   component-affected:
-    runs-on: [all-purpose, docker]
+    runs-on: ubuntu-22.04
     env:
       ON_MAIN_OR_RELEASE_BRANCH: ${{ inputs.mcode-branch == 'main' || startsWith(inputs.mcode-branch, 'release-') }}
     outputs:
