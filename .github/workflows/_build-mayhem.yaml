@@ -11,6 +11,13 @@ on:
         type: string
         description: "mcode commit SHA (optional)"
 
+    outputs:
+      component-affected-analyze:
+        value: "${{ jobs.component-affected.outputs.analyze }}"
+        description: "'analyze' component or its dependencies have been affected by changes on this branch."
+      component-affected-api:
+        value: "${{ jobs.component-affected.outputs.api }}"
+        description: "'api' component or its dependencies have been affected by changes on this branch."
 jobs:
   component-affected:
     runs-on: ubuntu-22.04

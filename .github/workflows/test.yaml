@@ -17,4 +17,5 @@ jobs:
     needs: job-0
     runs-on: ubuntu-22.04
     steps:
-      - run: echo test
+      - run: echo analyze affected=${{ needs.job-0.outputs.component-affected-analyze }}
+      - run: echo api affected=${{ needs.job-0.outputs.component-affected-api }}
