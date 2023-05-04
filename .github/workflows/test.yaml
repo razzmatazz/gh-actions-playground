@@ -1,6 +1,9 @@
 name: Test
 
-on: push
+on:
+  push: {}
+
+  workflow_dispatch: {}
 
 jobs:
   job-0:
@@ -9,3 +12,9 @@ jobs:
     with:
       mcode-branch: "${{ github.head_ref || github.ref_name }}"
       mcode-commit-sha: "${{ github.event.workflow_run.head_sha }}"
+
+  job-1:
+    needs: job-0
+    runs-on: ubuntu-22.04
+    steps:
+      - echo test
