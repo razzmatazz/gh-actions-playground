@@ -17,4 +17,4 @@ jobs:
     needs: job-0
     runs-on: ubuntu-22.04
     steps:
-      - echo test
+      - run: echo test
