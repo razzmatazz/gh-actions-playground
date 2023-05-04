@@ -4,7 +4,7 @@ on: push
 
 jobs:
   job-0:
-    uses: .github/workflows/_build-mayhem.yaml
+    uses: ./.github/workflows/_build-mayhem.yaml
     secrets: inherit
     with:
       mcode-branch: "${{ github.head_ref || github.ref_name }}"
