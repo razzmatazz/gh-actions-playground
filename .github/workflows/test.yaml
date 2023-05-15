@@ -10,7 +10,7 @@ jobs:
     if: true
     runs-on: ubuntu-22.04
     steps:
-      - run: job-1
+      - run: echo job-0
 
   job-1:
     needs: job-0
