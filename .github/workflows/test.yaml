@@ -7,15 +7,13 @@ on:
 
 jobs:
   job-0:
-    uses: ./.github/workflows/_build-mayhem.yaml
-    secrets: inherit
-    with:
-      mcode-branch: "${{ github.head_ref || github.ref_name }}"
-      mcode-commit-sha: "${{ github.event.workflow_run.head_sha }}"
+    if: true
+    runs-on: ubuntu-22.04
+    steps:
+      - run: job-1
 
   job-1:
     needs: job-0
     runs-on: ubuntu-22.04
     steps:
-      - run: echo analyze affected=${{ needs.job-0.outputs.component-affected-analyze }}
-      - run: echo api affected=${{ needs.job-0.outputs.component-affected-api }}
+      - run: echo job-1
