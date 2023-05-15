@@ -7,7 +7,7 @@ on:
 
 jobs:
   job-0:
-    if: true
+    if: false
     runs-on: ubuntu-22.04
     steps:
       - run: echo job-0
