@@ -15,7 +15,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             --paginate \
-            /repos/razzmatazz/gh-actions-playground/commits/0c4a1c281e26db46301a3c0650b84ecd0fd69eaa/check-suites \
-          | jq '.'
+            /repos/razzmatazz/gh-actions-playground/commits/${{ github.sha }}/check-suites \
+          | jq '.check_suites[] | select(.app.id = 15368)'
 
       - run: ${{ steps.list-check-suites.outputs.stdout }}
