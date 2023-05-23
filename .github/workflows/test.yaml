@@ -5,6 +5,8 @@ on:
 
 jobs:
   job-0:
+    permissions:
+      checks: write
     runs-on: ubuntu-latest
     steps:
       - env:
