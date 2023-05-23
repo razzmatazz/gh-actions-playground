@@ -20,6 +20,15 @@ jobs:
 
       - run: echo $GH_ACTIONS_CHECK_SUITE_ID
 
+      - name: check/0
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            --paginate \
+            "/repos/razzmatazz/gh-actions-playground/check-suites/$GH_ACTIONS_CHECK_SUITE_ID/check-runs?check_name=artifacts/base-images" \
+          | jq '.check_runs[0] | {name: .name, status: .status, conclusion: .conclusion, head_sha: .head_sha}'
+
       - env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -35,7 +44,8 @@ jobs:
             -f output[summary]="fheiojfeoiwfew==hi==\\nfjeiofew" \
             -f output[text]="jfeiojfiowe fjiowjf eow text txt\n==fewfewfew==\nfewijifoew"
 
-      - env:
+      - name: check/1
+        env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh api \
