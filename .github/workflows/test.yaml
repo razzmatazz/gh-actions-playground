@@ -7,7 +7,7 @@ jobs:
   job-0:
     runs-on: ubuntu-latest
     steps:
-      - run: gh api --version
+      - run: gh api --help
       - run: jq --version
 
       - uses: actions/checkout@v2
