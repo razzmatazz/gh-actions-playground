@@ -2,7 +2,6 @@ name: Test
 
 on:
   push: {}
-  workflow_dispatch: {}
 
 jobs:
   job-0:
@@ -12,7 +11,7 @@ jobs:
         id: create_check_run
         with:
           route: POST /repos/{owner}/{repo}/check-runs
-          owner: razzmtazz
+          owner: razzmatazz
           repo: gh-actions-playground
           name: "My check run"
           head_sha: ${{ github.sha }}
@@ -21,3 +20,5 @@ jobs:
             summary: A summary of the test check run
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: echo check_run_id=${{ fromJson(steps.create_check_run.outputs.data).id }}
