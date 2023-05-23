@@ -39,4 +39,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh api \
-            "/repos/razzmatazz/gh-actions-playground/check-runs?name=artifacts:base-images"
+            --paginate \
+            "/repos/razzmatazz/gh-actions-playground/check-suites/$GH_ACTIONS_CHECK_SUITE_ID/check-runs"
