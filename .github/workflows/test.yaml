@@ -22,6 +22,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh api \
+            -X POST \
             "/repos/razzmatazz/gh-actions-playground/commits/${{ github.sha }}/check-runs" \
             -f name="mighty_readme" \
             -f head_sha=${{ github.sha }} \
