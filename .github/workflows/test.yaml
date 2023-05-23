@@ -40,8 +40,8 @@ jobs:
             -f status=completed \
             -f conclusion=success \
             -f external_id=my-check \
-            -f output[title]="Mighty Readme report" \
-            -f output[summary]="fheiojfeoiwfew==hi==\\nfjeiofew" \
+            -f output[title]="Artifacts / base images" \
+            -f output[summary]="Have base images built for ${{ github.sha }}" \
             -f output[text]="jfeiojfiowe fjiowjf eow text txt\n==fewfewfew==\nfewijifoew"
 
       - name: check/1
