@@ -26,7 +26,7 @@ jobs:
           gh api \
             -X POST \
             "/repos/razzmatazz/gh-actions-playground/check-runs" \
-            -f name="mighty_readme" \
+            -f name="artifacts:base-images" \
             -f head_sha=${{ github.sha }} \
             -f status=completed \
             -f conclusion=success \
@@ -34,3 +34,9 @@ jobs:
             -f output[title]="Mighty Readme report" \
             -f output[summary]="fheiojfeoiwfew==hi==\\nfjeiofew" \
             -f output[text]="jfeiojfiowe fjiowjf eow text txt\n==fewfewfew==\nfewijifoew"
+
+      - env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api \
+            "/repos/razzmatazz/gh-actions-playground/check-runs?name=artifacts:base-images"
