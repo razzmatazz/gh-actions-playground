@@ -13,9 +13,8 @@ jobs:
           GH_ACTIONS_CHECK_SUITE_ID=$(gh api \
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            --paginate \
             "/repos/razzmatazz/gh-actions-playground/commits/${{ github.sha }}/check-suites?app_id=15368" \
-          | jq '.check_suites[].id')
+            -jq '.check_suites[].id')
 
           echo GH_ACTIONS_CHECK_SUITE_ID=$GH_ACTIONS_CHECK_SUITE_ID >> $GITHUB_ENV
 
