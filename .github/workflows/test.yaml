@@ -14,7 +14,7 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             "/repos/razzmatazz/gh-actions-playground/commits/${{ github.sha }}/check-suites?app_id=15368" \
-            -jq '.check_suites[].id')
+            --jq '.check_suites[].id')
 
           echo GH_ACTIONS_CHECK_SUITE_ID=$GH_ACTIONS_CHECK_SUITE_ID >> $GITHUB_ENV
 
@@ -25,4 +25,4 @@ jobs:
             -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             "/repos/razzmatazz/gh-actions-playground/commits/${{ github.sha }}/check-runs" \
-              -d '{"name":"mighty_readme","head_sha":"${{ github.sha }}","status":"in_progress","external_id":"my-check","output":{"title":"Mighty Readme report","summary":"","text":""}}'
+            -d '{"name":"mighty_readme","head_sha":"${{ github.sha }}","status":"in_progress","external_id":"my-check","output":{"title":"Mighty Readme report","summary":"","text":""}}'
