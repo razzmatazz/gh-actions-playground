@@ -28,7 +28,8 @@ jobs:
             "/repos/razzmatazz/gh-actions-playground/check-runs" \
             -f name="mighty_readme" \
             -f head_sha=${{ github.sha }} \
-            -f status=in_progress \
+            -f status=completed \
+            -f conclusion=success \
             -f external_id=my-check \
             -f output.title="Mighty Readme report" \
             -f output.summary="" \
