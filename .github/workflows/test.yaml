@@ -23,7 +23,7 @@ jobs:
         run: |
           gh api \
             -X POST \
-            "/repos/razzmatazz/gh-actions-playground/commits/${{ github.sha }}/check-runs" \
+            "/repos/razzmatazz/gh-actions-playground/check-runs" \
             -f name="mighty_readme" \
             -f head_sha=${{ github.sha }} \
             -f status=in_progress \
