@@ -7,8 +7,7 @@ jobs:
   job-0:
     runs-on: ubuntu-latest
     steps:
-      - id: list-check-suites
-        env:
+      - env:
           GH_TOKEN: ${{ github.token }}
         run: |
           GH_ACTIONS_CHECK_SUITE_ID=$(gh api \
@@ -18,10 +17,6 @@ jobs:
             "/repos/razzmatazz/gh-actions-playground/commits/${{ github.sha }}/check-suites?app_id=15368" \
           | jq '.check_suites[].id')
 
-          echo GH_ACTIONS_CHECK_SUITE_ID=$GH_ACTIONS_CHECK_SUITE_ID
           echo GH_ACTIONS_CHECK_SUITE_ID=$GH_ACTIONS_CHECK_SUITE_ID >> $GITHUB_ENV
-        outputs:
-          gh_actions_check_suite_id: ${{ env.GH_ACTIONS_CHECK_SUITE_ID }}
 
-
-      - run: echo id=${{ steps.list-check-suites.outputs.gh_actions_check_suite_id }}
+      - run: echo $GH_ACTIONS_CHECK_SUITE_ID
