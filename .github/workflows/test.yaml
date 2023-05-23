@@ -8,8 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: list-check-suites
-        outputs:
-          gh_actions_check_suite_id: ${{ env.GH_ACTIONS_CHECK_SUITE_ID }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
