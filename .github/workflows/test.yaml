@@ -7,18 +7,17 @@ jobs:
   job-0:
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/request-action@v2.x
-        id: create_check_run
-        with:
-          route: POST /repos/{owner}/{repo}/check-runs
-          owner: razzmatazz
-          repo: gh-actions-playground
-          name: "My check run"
-          head_sha: ${{ github.sha }}
-          output: | # The | is significant!
-            title: Test check run title
-            summary: A summary of the test check run
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: gh api --version
+      - run: jq --version
 
-      - run: echo check_run_id=${{ fromJson(steps.create_check_run.outputs.data).id }}
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with: { version: 12 }
+
+      - run: npm install @octokit/action
+
+      - run: node .github/workflows/my-script.js
+        env:
+          COMMIT_SHA: ${{ github.sha }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
