@@ -41,4 +41,4 @@ jobs:
           gh api \
             --paginate \
             "/repos/razzmatazz/gh-actions-playground/check-suites/$GH_ACTIONS_CHECK_SUITE_ID/check-runs?check_name=artifacts/base-images" \
-          | jq '.check_runs[0] | {.status, .conclusion, .head_sha}'
+          | jq '.check_runs[0] | {name: .name, status: .status, conclusion: .conclusion, head_sha: .head_sha}'
