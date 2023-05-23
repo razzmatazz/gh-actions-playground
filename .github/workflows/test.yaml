@@ -26,7 +26,7 @@ jobs:
           gh api \
             -X POST \
             "/repos/razzmatazz/gh-actions-playground/check-runs" \
-            -f name="artifacts:base-images" \
+            -f name="artifacts/base-images" \
             -f head_sha=${{ github.sha }} \
             -f status=completed \
             -f conclusion=success \
@@ -40,4 +40,4 @@ jobs:
         run: |
           gh api \
             --paginate \
-            "/repos/razzmatazz/gh-actions-playground/check-suites/$GH_ACTIONS_CHECK_SUITE_ID/check-runs"
+            "/repos/razzmatazz/gh-actions-playground/check-suites/$GH_ACTIONS_CHECK_SUITE_ID/check-runs?check_name=artifacts/base-images"
