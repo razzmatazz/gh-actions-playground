@@ -2,18 +2,22 @@ name: Test
 
 on:
   push: {}
-
   workflow_dispatch: {}
 
 jobs:
   job-0:
-    if: false
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
-      - run: echo job-0
-
-  job-1:
-    needs: job-0
-    runs-on: ubuntu-22.04
-    steps:
-      - run: echo job-1
+      - uses: octokit/request-action@v2.x
+        id: create_check_run
+        with:
+          route: POST /repos/{owner}/{repo}/check-runs
+          owner: razzmtazz
+          repo: gh-actions-playground
+          name: "My check run"
+          head_sha: ${{ github.sha }}
+          output: | # The | is significant!
+            title: Test check run title
+            summary: A summary of the test check run
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
