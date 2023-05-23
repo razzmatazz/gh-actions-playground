@@ -32,5 +32,5 @@ jobs:
             -f conclusion=success \
             -f external_id=my-check \
             -f output.title="Mighty Readme report" \
-            -f output.summary="" \
-            -f output.text=""
+            -f output.summary="fheiojfeoiwfew\n==hi==\nfjeiofew" \
+            -f output.text="jfeiojfiowe fjiowjf eow text txt\n==fewfewfew==\nfewijifoew"
