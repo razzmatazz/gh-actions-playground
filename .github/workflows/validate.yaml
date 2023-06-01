@@ -39,6 +39,8 @@ jobs:
                },
             });
 
+            console.log("check.id=", check.id);
+
             return check.id
 
   sleep:
