@@ -18,6 +18,6 @@ jobs:
             await octokit.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              "validate.yaml",
-              "${{ github.ref_name }}"
+              workflow_id: "validate.yaml",
+              ref: "${{ github.ref_name }}"
             });
