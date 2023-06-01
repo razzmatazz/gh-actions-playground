@@ -15,7 +15,7 @@ jobs:
       - uses: actions/github-script@v3.1.0
         with:
           script: |
-            await octokit.rest.actions.createWorkflowDispatch({
+            await github.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: "validate.yaml",
