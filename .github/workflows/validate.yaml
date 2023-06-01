@@ -68,6 +68,5 @@ jobs:
                owner: context.repo.owner,
                repo: context.repo.repo,
                check_run_id: ${{ needs.mark-check-in-progress.outputs.check_run_id }},
-               status: "completed",
                conclusion: "failure"
             });
