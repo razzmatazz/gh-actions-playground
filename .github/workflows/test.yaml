@@ -5,58 +5,6 @@ on:
 
 jobs:
   job-0:
-    permissions:
-      checks: write
     runs-on: ubuntu-latest
     steps:
-      - env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          GH_ACTIONS_CHECK_SUITE_ID=$(gh api \
-            "/repos/razzmatazz/gh-actions-playground/commits/${{ github.sha }}/check-suites?app_id=15368" \
-            --jq '.check_suites[].id')
-
-          echo GH_ACTIONS_CHECK_SUITE_ID=$GH_ACTIONS_CHECK_SUITE_ID >> $GITHUB_ENV
-
-      - run: echo $GH_ACTIONS_CHECK_SUITE_ID
-
-      - name: check/0
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api \
-            --paginate \
-            "/repos/razzmatazz/gh-actions-playground/check-suites/$GH_ACTIONS_CHECK_SUITE_ID/check-runs?check_name=artifacts/base-images" \
-          | jq '.check_runs[0].conclusion'
-
-      - env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api \
-            -X POST \
-            "/repos/razzmatazz/gh-actions-playground/check-runs" \
-            -f name="artifacts/base-images" \
-            -f head_sha=${{ github.sha }} \
-            -f status=completed \
-            -f conclusion=success \
-            -f output[title]="Artifacts / base images" \
-            -f output[summary]="Have base images built for ${{ github.sha }}" \
-            -f output[text]="jfeiojfiowe fjiowjf eow text txt\n==fewfewfew==\nfewijifoew"
-
-      - name: check/1
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api \
-            --paginate \
-            "/repos/razzmatazz/gh-actions-playground/check-suites/$GH_ACTIONS_CHECK_SUITE_ID/check-runs?check_name=artifacts/base-images" \
-          | jq '.check_runs[0] | {name: .name, status: .status, conclusion: .conclusion, head_sha: .head_sha}'
-
-      - name: check/1/conclusion
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh api \
-            --paginate \
-            "/repos/razzmatazz/gh-actions-playground/check-suites/$GH_ACTIONS_CHECK_SUITE_ID/check-runs?check_name=artifacts/base-images" \
-          | jq '.check_runs[0].conclusion'
+      - run: hi
