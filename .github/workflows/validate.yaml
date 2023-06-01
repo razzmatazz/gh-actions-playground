@@ -1,15 +1,13 @@
 name: Validate
 
 on:
-  workflow_run:
-    workflows: [Build]
-    types: [completed]
+  workflow_dispatch:
 
 jobs:
   job-0:
     runs-on: ubuntu-latest
     steps:
-      - run: echo hello from workflow_run ${{ github.event.workflow_run.head_sha }}
+      - run: echo hello ref=${{ github.ref_name }}
 
   mark-check-in-progress:
     needs: job-0
@@ -29,7 +27,7 @@ jobs:
                owner: context.repo.owner,
                repo: context.repo.repo,
                name: "Validate",
-               head_sha: "${{ github.event.workflow_run.head_sha }}",
+               head_sha: "${{ github.ref_name }}",
                details_url: "http://github.com/",
                status: "in_progress",
                output: {
