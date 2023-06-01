@@ -24,7 +24,7 @@ jobs:
                owner: context.repo.owner,
                repo: context.repo.repo,
                name: "Validate",
-               head_sha: github.event.workflow_run.head_sha,
+               head_sha: "${{ github.event.workflow_run.head_sha }}",
                details_url: "http://github.com/",
                status: "in_progress",
                output: {
