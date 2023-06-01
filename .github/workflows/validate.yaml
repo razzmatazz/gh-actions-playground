@@ -39,7 +39,7 @@ jobs:
                },
             });
 
-            console.log("check.data=", JSON.stringify(check));
+            console.log("check.data=", JSON.stringify(check.data));
 
             return check.data.id
 
@@ -65,7 +65,7 @@ jobs:
         with:
           script: |
             await github.checks.update({
-               id: "${{ needs.mark-check-in-progress.outputs.check_id }}"
+               id: ${{ needs.mark-check-in-progress.outputs.check_id }},
                status: "completed",
                conclusion: "success"
             });
