@@ -39,7 +39,7 @@ jobs:
                },
             });
 
-            console.log("check.id=", check.id);
+            console.log("check.id=", JSON.stringify(check));
 
             return check.id
 
