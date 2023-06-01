@@ -39,9 +39,9 @@ jobs:
                },
             });
 
-            console.log("check.id=", JSON.stringify(check));
+            console.log("check.data=", JSON.stringify(check));
 
-            return check.id
+            return check.data.id
 
   sleep:
     needs: mark-check-in-progress
@@ -64,7 +64,7 @@ jobs:
         uses: actions/github-script@v3.1.0
         with:
           script: |
-            github.checks.update({
+            await github.checks.update({
                id: "${{ needs.mark-check-in-progress.outputs.check_id }}"
                status: "completed",
                conclusion: "success"
