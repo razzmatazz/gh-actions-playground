@@ -18,7 +18,7 @@ jobs:
     permissions:
       checks: write
     outputs:
-      check_id: ${{ steps.create-check.outputs.result }}
+      check_run_id: ${{ steps.create-check.outputs.result }}
     steps:
       - name: 'Set check status in-progress'
         uses: actions/github-script@v3.1.0
@@ -58,14 +58,16 @@ jobs:
     permissions:
       checks: write
     steps:
-      - run: echo "check-id = ${{ needs.mark-check-in-progress.outputs.check_id }}"
+      - run: echo "check-id = ${{ needs.mark-check-in-progress.outputs.check_run_id }}"
 
       - name: 'Update check status in-progress'
         uses: actions/github-script@v3.1.0
         with:
           script: |
             await github.checks.update({
-               id: ${{ needs.mark-check-in-progress.outputs.check_id }},
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               check_run_id: ${{ needs.mark-check-in-progress.outputs.check_run_id }},
                status: "completed",
                conclusion: "success"
             });
