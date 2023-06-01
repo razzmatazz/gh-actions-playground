@@ -10,3 +10,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo hello from workflow_run ${{ github.event.workflow_run.head_sha }}
+
+  mark-check-in-progress:
+    needs: job-0
+    name: Mark check in-progress on originating PR
+    runs-on: ubuntu-22.04
+    needs:
+      - compute-metadata
+    steps:
+      - name: 'Set check status in-progress'
+        uses: actions/github-script@v3.1.0
+        with:
+          script: |
+            github.rest.checks.create({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               name: "Validate",
+               head_sha: github.event.workflow_run.head_sha,
+               details_url: "http://github.com/",
+               status: "in_progress",
+               output: {
+                  title: "Validate",
+                  summary: "Validation summary.",
+                  text: '',
+               },
+            });
