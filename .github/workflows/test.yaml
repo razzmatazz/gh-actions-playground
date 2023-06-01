@@ -7,4 +7,4 @@ jobs:
   job-0:
     runs-on: ubuntu-latest
     steps:
-      - run: hi
+      - run: echo hi
