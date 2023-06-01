@@ -11,6 +11,8 @@ jobs:
     steps:
       - run: echo hello from workflow_run ${{ github.event.workflow_run.head_sha }}
 
+      - run: echo version ${{ github.event.workflow_run.outputs.version }}
+
   mark-check-in-progress:
     needs: job-0
     name: Mark check in-progress

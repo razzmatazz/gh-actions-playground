@@ -3,6 +3,10 @@ name: Build
 on:
   push: {}
 
+outputs:
+  version:
+    value: "mayhem-1234"
+
 jobs:
   job-0:
     runs-on: ubuntu-latest
