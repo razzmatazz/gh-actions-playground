@@ -15,8 +15,6 @@ jobs:
     needs: job-0
     name: Mark check in-progress on originating PR
     runs-on: ubuntu-22.04
-    needs:
-      - compute-metadata
     steps:
       - name: 'Set check status in-progress'
         uses: actions/github-script@v3.1.0
