@@ -25,7 +25,7 @@ jobs:
         id: create-check
         with:
           script: |
-            const check = github.checks.create({
+            const check = await github.checks.create({
                owner: context.repo.owner,
                repo: context.repo.repo,
                name: "Validate",
