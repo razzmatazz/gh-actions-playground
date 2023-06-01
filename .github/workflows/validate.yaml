@@ -12,17 +12,21 @@ jobs:
       - run: echo hello from workflow_run ${{ github.event.workflow_run.head_sha }}
 
   mark-check-in-progress:
+    id: create-check
     needs: job-0
     name: Mark check in-progress on originating PR
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     permissions:
       checks: write
+    outputs:
+      check_id: ${{ steps.create-check.outputs.outputs.result }}
     steps:
       - name: 'Set check status in-progress'
         uses: actions/github-script@v3.1.0
+        id: create-check
         with:
           script: |
-            github.checks.create({
+            const check = github.checks.create({
                owner: context.repo.owner,
                repo: context.repo.repo,
                name: "Validate",
@@ -34,4 +38,33 @@ jobs:
                   summary: "Validation summary.",
                   text: '',
                },
+            });
+
+            return check.id
+
+  sleep:
+    needs: mark-check-in-progress
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 10
+
+  mark-check-as-completed:
+    needs:
+      - mark-check-in-progress
+      - sleep
+    name: Mark check in-progress on originating PR
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+    steps:
+      - run: echo "check-id = ${{ needs.mark-check-in-progress.outputs.check_id }}"
+
+      - name: 'Update check status in-progress'
+        uses: actions/github-script@v3.1.0
+        with:
+          script: |
+            github.checks.update({
+               id: "${{ needs.mark-check-in-progress.outputs.check_id }}"
+               status: "completed",
+               conclusion: "succeeded"
             });
