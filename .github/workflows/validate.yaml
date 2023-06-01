@@ -12,7 +12,6 @@ jobs:
       - run: echo hello from workflow_run ${{ github.event.workflow_run.head_sha }}
 
   mark-check-in-progress:
-    id: create-check
     needs: job-0
     name: Mark check in-progress on originating PR
     runs-on: ubuntu-latest
