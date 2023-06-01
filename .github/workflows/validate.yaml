@@ -60,8 +60,7 @@ jobs:
     steps:
       - run: echo "check-id = ${{ needs.mark-check-in-progress.outputs.check_run_id }}"
 
-      - name: 'Update check status in-progress'
-        uses: actions/github-script@v3.1.0
+      - uses: actions/github-script@v3.1.0
         with:
           script: |
             await github.checks.update({
