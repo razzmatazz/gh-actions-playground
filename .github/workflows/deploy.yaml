@@ -3,9 +3,11 @@ run-name: "Deploy (${{ github.ref_name }})"
 
 on:
   workflow_dispatch:
+    inputs:
+      sha: { type: string }
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: echo deploying (on yet-another-branch)
+      - run: echo deploying (on yet-another-branch), sha=${{ inputs.sha }}
