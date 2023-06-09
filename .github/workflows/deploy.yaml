@@ -8,4 +8,4 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: echo deploying (yet-another-branch)
+      - run: echo deploying (yet-another-branch test)
