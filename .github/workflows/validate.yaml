@@ -2,6 +2,16 @@ name: Validate
 
 on:
   workflow_dispatch:
+    inputs:
+      test_analyze:
+        type: boolean
+        default: true
+      test_api:
+        type: boolean
+        default: true
+      test_mchart:
+        type: boolean
+        default: true
 
 jobs:
   job-0:
