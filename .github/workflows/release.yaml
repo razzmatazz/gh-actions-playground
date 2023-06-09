@@ -1,0 +1,16 @@
+name: "Deploy / app.mayhem.security"
+run-name: "Deploy / app.mayhem.security (${{ github.ref_name }})"
+
+on:
+  workflow_dispatch:
+
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
+    branches: [yet-another-branch]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo hi
