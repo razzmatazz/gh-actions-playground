@@ -1,5 +1,5 @@
-name: "Deploy / app.mayhem.security"
-run-name: "Deploy / app.mayhem.security (${{ github.ref_name }})"
+name: "Deploy"
+run-name: "Deploy (${{ github.ref_name }})"
 
 on:
   workflow_dispatch:
