@@ -1,5 +1,4 @@
-name: "Deploy"
-run-name: "Deploy (${{ github.ref_name }})"
+name: "Continuous deployment from ${{ github.event.workflow_run.head_branch }}"
 
 on:
   workflow_dispatch:
