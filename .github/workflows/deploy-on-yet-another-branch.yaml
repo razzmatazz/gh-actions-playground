@@ -1,0 +1,16 @@
+name: "Deploy"
+run-name: "Deploy (${{ github.ref_name }})"
+
+on:
+  workflow_dispatch:
+
+  workflow_run:
+    workflows: [Build]
+    types: [completed]
+    branches: [yet-another-branch]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run deploy.yaml --ref yet-another-branch
