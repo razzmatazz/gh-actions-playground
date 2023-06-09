@@ -4,13 +4,8 @@ run-name: "Deploy (${{ github.ref_name }})"
 on:
   workflow_dispatch:
 
-  workflow_run:
-    workflows: [Build]
-    types: [completed]
-    branches: [yet-another-branch]
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: echo hi
+      - run: echo deploying
