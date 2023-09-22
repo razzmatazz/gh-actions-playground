@@ -82,10 +82,12 @@ jobs:
               }
             }
 
-            console.log("scheduling next branch to run: "+ nextBranchToService);
+            console.log(nextBranchToService);
 
             if (nextBranchToService) {
-              await github.actions.createWorkflowDispatch({
+              console.log("scheduling a run to service next branch: " + nextBranchToService);
+
+              await github.rest.actions.createWorkflowDispatch({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 workflow_id: workloadWorkflow,
