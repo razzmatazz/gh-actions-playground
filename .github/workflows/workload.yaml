@@ -1,0 +1,13 @@
+name: Workload
+
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        type: string
+
+jobs:
+  workload:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sleep 60
