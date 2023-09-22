@@ -1,4 +1,5 @@
 name: "Scheduling"
+run-name: "Scheduling (${{ github.ref_name }})"
 
 on:
   #schedule:
