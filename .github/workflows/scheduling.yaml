@@ -66,11 +66,11 @@ jobs:
               "keys of completedWorkflowRunListResponse.data=",
               JSON.stringify(Object.keys(completedWorkflowRunListResponse.data)));
 
-            const lastServicedBranches =
-              completedWorkflowRunListResponse.data.workflow_runs.data.workflow_runs.map(
-                wr => wr.head_branch);
-
             console.log("branchesToService" + JSON.stringify(branchesToService));
+
+            const lastServicedBranches =
+              completedWorkflowRunListResponse.data.workflow_runs.map(
+                wr => wr.head_branch);
 
             console.log("lastServicedBranches=" + JSON.stringify(lastServicedBranches));
 
