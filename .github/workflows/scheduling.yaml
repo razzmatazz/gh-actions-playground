@@ -22,7 +22,7 @@ jobs:
       actions: write
     steps:
       - name: Run C/D on yet-another-branch
-        uses: actions/github-script@v3.1.0
+        uses: actions/github-script@v6
         #if: ${{ github.event.workflow_run.head_branch == 'yet-another-branch' }}
         with:
           script: |
