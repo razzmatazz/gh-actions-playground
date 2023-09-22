@@ -75,7 +75,7 @@ jobs:
             console.log("lastServicedBranches=" + JSON.stringify(lastServicedBranches));
 
             let nextBranchToService = null;
-            for (const b in branchesToService) {
+            for (const b of branchesToService) {
               if (lastServicedBranches.indexOf(b) < 0) {
                 nextBranchToService = b;
                 break;
