@@ -76,7 +76,7 @@ jobs:
 
             let nextBranchToService = null;
             for (const b in branchesToService) {
-              if (a.indexOf(b) < 0) {
+              if (lastServicedBranches.indexOf(b) < 0) {
                 nextBranchToService = b;
                 break;
               }
