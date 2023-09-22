@@ -37,7 +37,7 @@ jobs:
               workflow_id: workloadWorkflow,
               per_page: 0,
               exclude_pull_requests: true,
-              status: [ "action_required", "in_progress", "queued", "requested", "waiting", "pending" ]
+              status: "action_required,in_progress,queued,requested,waiting,pending"
             });
 
             console.log(
@@ -56,7 +56,7 @@ jobs:
                 workflow_id: workloadWorkflow,
                 per_page: branchesToService.length,
                 exclude_pull_requests: true,
-                status: [ "completed", "cancelled", "failure", "neutral", "skipped", "stale", "success", "timed_out" ]
+                status: "completed,cancelled,failure,neutral,skipped,stale,success,timed_out"
               });
 
             console.log(
