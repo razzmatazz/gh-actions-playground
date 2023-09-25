@@ -2,9 +2,6 @@ name: "Scheduling"
 run-name: "Scheduling (${{ github.ref_name }})"
 
 on:
-  #schedule:
-  #  cron: xxxx
-
   workflow_run:
     workflows: [Workload]
     types: [completed]
@@ -12,11 +9,6 @@ on:
       - main
       - release
 
-  workflow_dispatch:
-
-  push:
-    branches:
-      - main
 
 jobs:
   scheduler:
