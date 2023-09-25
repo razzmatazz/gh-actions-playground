@@ -87,7 +87,7 @@ jobs:
                       + `&exclude_pull_requests=true`
                       + `&status=completed&status=cancelled&status=failure&status=neutral&status=skipped&status=stale&status=success&status=timed_out`
                 }
-              });
+              );
 
             console.log("newCompletedWorkflowRunListResponse.keys=" + JSON.stringify(Object.keys(newCompletedWorkflowRunListResponse)));
 
