@@ -26,6 +26,7 @@ jobs:
         uses: actions/github-script@v6
         #if: ${{ github.event.workflow_run.head_branch == 'yet-another-branch' }}
         with:
+          debug: true
           script: |
             const branchesToService = ["main", "release"];
 
@@ -50,6 +51,16 @@ jobs:
             }
 
             console.log("branchesToService" + JSON.stringify(branchesToService));
+
+            const XXX =
+              await github.rest.actions.listWorkflowRuns({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id: workloadWorkflow,
+                per_page: branchesToService.length,
+                exclude_pull_requests: true,
+                status: "completed,cancelled,failure,neutral,skipped,stale,success,timed_out"
+              });
 
             const completedWorkflowRunListResponse =
               await github.rest.actions.listWorkflowRuns({
