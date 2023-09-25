@@ -81,12 +81,6 @@ jobs:
 
             const completedWorkflowRuns = completedWorkflowRunListResponse.data.workflow_runs;
 
-            console.log(
-              "completedWorkflowRuns=" + JSON.stringify(completedWorkflowRuns));
-
-            console.log(
-              "completedWorkflowRuns=" + JSON.stringify(completedWorkflowRuns.map(wr => {{ wr.head_branch, wr.created_at }})));
-
             let nextBranchToService = null;
             for (const b of branchesToService) {
               if (!completedWorkflowRuns.find(wr => wr.head_branch == b)) {
