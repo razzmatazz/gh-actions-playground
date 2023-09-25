@@ -6,10 +6,8 @@ on:
   #  cron: xxxx
 
   workflow_run:
-    workflows:
-      - Workload
-    types:
-      - completed
+    workflows: [Workload]
+    types: [completed]
 #    branches:
 #      - yet-another-branch
 #      - and-yet-another-branch
@@ -87,9 +85,15 @@ jobs:
                 nextBranchToService = b;
                 break;
               }
+
+              console.log("branch " + b + " was already serviced this cycle");
             }
 
             if (nextBranchToService == null) {
+              console.log(
+                "all branches services this cycle already, will take first one from "
+                + JSON.stringify(completedWorkflowRuns.map(wr => wr.head_branch)));
+
               nextBranchToService = completedWorkflowRuns[0].head_branch;
             }
 
