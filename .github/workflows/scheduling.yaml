@@ -79,7 +79,7 @@ jobs:
             console.log("process.env=", JSON.stringify(Object.keys(process.env)));
 
             const newCompletedWorkflowRunListResponse =
-              await github.request({
+              await github.request(
                 "GET /repos/razzmatazz/gh-actions-playground/actions/workflows/workload.yaml/runs",
                 {
                   url: `/repos/razzmatazz/gh-actions-playground/actions/workflows/workload.yaml/runs`
