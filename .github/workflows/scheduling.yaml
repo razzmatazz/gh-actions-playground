@@ -80,7 +80,7 @@ jobs:
 
             const newCompletedWorkflowRunListResponse =
               await fetch(
-                `GET api.github.com/repos/razzmatazz/gh-actions-playground/actions/workflows/workload.yaml/runs`
+                `GET https://api.github.com/repos/razzmatazz/gh-actions-playground/actions/workflows/workload.yaml/runs`
                   + `?per_page=2`
                   + `&exclude_pull_requests=true`
                   + `&status=completed&status=cancelled&status=failure&status=neutral&status=skipped&status=stale&status=success&status=timed_out`,
