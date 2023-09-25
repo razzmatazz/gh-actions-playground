@@ -60,7 +60,8 @@ jobs:
             console.log("activeWorkflowRunCount=", activeWorkflowRunCount);
 
             if (activeWorkflowRunCount) {
-              console.log(`terminating: ${activeWorkflowRunCount} ${workloadWorkflow} workflow runs still active (in_progress+queued)`);
+              console.log(`terminating: ${inProgressWorkflowRunListResponse.data.total_count} workflow runs "in_progress", `
+                + `${queuedWorkflowRunListResponse.data.total_count} "queued"`);
               return 0;
             }
 
@@ -90,7 +91,11 @@ jobs:
               }
             }
 
-            console.log(nextBranchToService);
+            if (nextBranchToService == null) {
+              nextBranchToService = branchesToService[0];
+            }
+
+            console.log("nextBranchToService=${nextBranchToService}");
 
             if (nextBranchToService) {
               console.log("scheduling a run to service next branch: " + nextBranchToService);
