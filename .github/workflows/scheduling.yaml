@@ -8,9 +8,9 @@ on:
   workflow_run:
     workflows: [Workload]
     types: [completed]
-#    branches:
-#      - yet-another-branch
-#      - and-yet-another-branch
+    branches:
+      - main
+      - release
 
   workflow_dispatch:
 
@@ -85,8 +85,6 @@ jobs:
                 nextBranchToService = b;
                 break;
               }
-
-              console.log("branch " + b + " was already serviced this cycle");
             }
 
             if (nextBranchToService == null) {
@@ -96,8 +94,6 @@ jobs:
 
               nextBranchToService = completedWorkflowRuns[completedWorkflowRuns.length-1].head_branch;
             }
-
-            console.log(`nextBranchToService=${nextBranchToService}`);
 
             if (nextBranchToService) {
               console.log("scheduling a run to service next branch: " + nextBranchToService);
