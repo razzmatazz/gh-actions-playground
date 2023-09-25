@@ -74,6 +74,7 @@ jobs:
 
             console.log("github=" + JSON.stringify(Object.keys(github)));
             console.log("github.rest=" + JSON.stringify(Object.keys(github.rest)));
+            console.log("github.request=" + JSON.stringify(Object.keys(github.request)));
 
             const newCompletedWorkflowRunListResponse =
               await github.get(
