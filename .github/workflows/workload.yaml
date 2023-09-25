@@ -1,5 +1,4 @@
 name: Workload
-run-name: "Workload (${{ github.ref_name }})"
 
 on:
   workflow_dispatch:
