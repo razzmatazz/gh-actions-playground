@@ -80,8 +80,9 @@ jobs:
               });
 
             const lastServicedBranches =
-              completedWorkflowRunListResponse.data.workflow_runs.map(
-                wr => wr.head_branch);
+              completedWorkflowRunListResponse.data.workflow_runs
+              .toSorted((a, b) => (a.updated_at > b.updated_at))
+              .map(wr => wr.head_branch);
 
             console.log("lastServicedBranches=" + JSON.stringify(lastServicedBranches));
 
