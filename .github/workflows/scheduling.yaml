@@ -76,6 +76,8 @@ jobs:
             console.log("github.rest=" + JSON.stringify(Object.keys(github.rest)));
             console.log("github.request=" + JSON.stringify(Object.keys(github.request)));
 
+            console.log("process.env=", JSON.stringify(Object.keys(process.env)));
+
             const newCompletedWorkflowRunListResponse =
               await fetch(
                 `GET api.github.com/repos/razzmatazz/gh-actions-playground/actions/workflows/workload.yaml/runs`
