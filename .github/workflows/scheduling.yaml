@@ -6,8 +6,10 @@ on:
   #  cron: xxxx
 
   workflow_run:
-    workflows: [Workload]
-    types: [completed]
+    workflows:
+      - Workload
+    types:
+      - completed
 #    branches:
 #      - yet-another-branch
 #      - and-yet-another-branch
