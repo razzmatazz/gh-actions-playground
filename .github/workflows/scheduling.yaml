@@ -77,11 +77,19 @@ jobs:
             console.log("github.request=" + JSON.stringify(Object.keys(github.request)));
 
             const newCompletedWorkflowRunListResponse =
-              await github.get(
-                `GET /repos/razzmatazz/gh-actions-playground/actions/workflows/workload.yaml/runs`
-                + `?per_page=2`
-                + `&exclude_pull_requests=true`
-                + `&status=completed&status=cancelled&status=failure&status=neutral&status=skipped&status=stale&status=success&status=timed_out`);
+              await github.fetch(
+                `GET api.github.com/repos/razzmatazz/gh-actions-playground/actions/workflows/workload.yaml/runs`
+                  + `?per_page=2`
+                  + `&exclude_pull_requests=true`
+                  + `&status=completed&status=cancelled&status=failure&status=neutral&status=skipped&status=stale&status=success&status=timed_out`,
+                {
+                 headers: {
+                   Authorization: `token ${process.env.GITHUB_TOKEN}`
+                 }
+                }
+            );
+
+            console.log("newCompletedWorkflowRunListResponse.keys=" + JSON.stringify(Object.keys(newCompletedWorkflowRunListResponse)));
 
             const newLastServicedBranches =
               newCompletedWorkflowRunListResponse.data.workflow_runs.map(
