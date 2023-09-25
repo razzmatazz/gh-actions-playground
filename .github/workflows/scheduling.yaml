@@ -94,7 +94,7 @@ jobs:
                 "all branches services this cycle already, will take first one from "
                 + JSON.stringify(completedWorkflowRuns.map(wr => wr.head_branch)));
 
-              nextBranchToService = completedWorkflowRuns[0].head_branch;
+              nextBranchToService = completedWorkflowRuns[completedWorkflowRuns.length-1].head_branch;
             }
 
             console.log(`nextBranchToService=${nextBranchToService}`);
