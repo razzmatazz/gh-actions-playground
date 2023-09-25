@@ -63,7 +63,7 @@ jobs:
                 workflow_id: workloadWorkflow,
                 per_page: branchesToService.length,
                 exclude_pull_requests: true,
-                status: "completed,cancelled,failure,neutral,skipped,stale,success,timed_out"
+                status: ["completed","cancelled","failure","neutral","skipped","stale","success","timed_out"]
               });
 
             const allLastServicedBranches =
