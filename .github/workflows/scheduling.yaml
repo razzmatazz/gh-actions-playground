@@ -49,6 +49,8 @@ jobs:
               return 0;
             }
 
+            console.log("branchesToService" + JSON.stringify(branchesToService));
+
             const completedWorkflowRunListResponse =
               await github.rest.actions.listWorkflowRuns({
                 owner: context.repo.owner,
@@ -56,7 +58,7 @@ jobs:
                 workflow_id: workloadWorkflow,
                 per_page: branchesToService.length,
                 exclude_pull_requests: true,
-                status: "completed,cancelled,failure,neutral,skipped,stale,success,timed_out"
+                status: "completed"
               });
 
             console.log(
@@ -67,7 +69,9 @@ jobs:
               "keys of completedWorkflowRunListResponse.data=",
               JSON.stringify(Object.keys(completedWorkflowRunListResponse.data)));
 
-            console.log("branchesToService" + JSON.stringify(branchesToService));
+            console.log(
+              "completedWorkflowRunListResponse.data=",
+              JSON.stringify(completedWorkflowRunListResponse.data));
 
             const lastServicedBranches =
               completedWorkflowRunListResponse.data.workflow_runs.map(
