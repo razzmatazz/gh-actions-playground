@@ -95,7 +95,7 @@ jobs:
               nextBranchToService = branchesToService[0];
             }
 
-            console.log("nextBranchToService=${nextBranchToService}");
+            console.log(`nextBranchToService=${nextBranchToService}`);
 
             if (nextBranchToService) {
               console.log("scheduling a run to service next branch: " + nextBranchToService);
