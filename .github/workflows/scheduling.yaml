@@ -84,7 +84,7 @@ jobs:
               .toSorted((a, b) => (a.updated_at > b.updated_at))
               .map(wr => wr.head_branch);
 
-            console.log("lastServicedBranches=" + JSON.stringify(lastServicedBranches));
+            console.log("lastServicedBranches=" + JSON.stringify(lastServicedBranches.map(wr => { wr.head_branch, wr.updated_at })));
 
             let nextBranchToService = null;
             for (const b of branchesToService) {
