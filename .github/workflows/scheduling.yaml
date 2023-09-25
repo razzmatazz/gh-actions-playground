@@ -61,7 +61,7 @@ jobs:
             console.log("activeWorkflowRunCount=", activeWorkflowRunCount);
 
             if (activeWorkflowRunCount) {
-              console.log(`terminating: ${activeWorkflowRunCount} `{workloadWorkflow}` workflow runs still active (in_progress+queued)`);
+              console.log(`terminating: ${activeWorkflowRunCount} ${workloadWorkflow} workflow runs still active (in_progress+queued)`);
               return 0;
             }
 
