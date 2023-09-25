@@ -72,6 +72,9 @@ jobs:
 
             console.log("allLastServicedBranches=" + JSON.stringify(allLastServicedBranches));
 
+            console.log("github=" + JSON.stringify(Object.keys(github)));
+            console.log("github.rest=" + JSON.stringify(Object.keys(github.rest)));
+
             const newCompletedWorkflowRunListResponse =
               await github.get(
                 `GET /repos/razzmatazz/gh-actions-playground/actions/workflows/workload.yaml/runs`
