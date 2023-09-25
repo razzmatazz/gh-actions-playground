@@ -90,7 +90,7 @@ jobs:
             }
 
             if (nextBranchToService == null) {
-              nextBranchToService = branchesToService[0];
+              nextBranchToService = completedWorkflowRuns[0].head_branch;
             }
 
             console.log(`nextBranchToService=${nextBranchToService}`);
