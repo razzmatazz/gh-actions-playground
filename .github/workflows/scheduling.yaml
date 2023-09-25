@@ -79,19 +79,11 @@ jobs:
                 status: "completed"
               });
 
-            const lastServicedBranches =
-              completedWorkflowRunListResponse.data.workflow_runs
-              .map(a => a);
-
-            console.log("lastServicedBranches[0].keys=" + JSON.stringify(Object.keys(lastServicedBranches[0])));
-
-            lastServicedBranches.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
-
-            console.log("lastServicedBranches=" + JSON.stringify(lastServicedBranches.map(wr => { wr.head_branch, wr.updated_at })));
+            const completedWorkflowRuns = completedWorkflowRunListResponse.data.workflow_runs;
 
             let nextBranchToService = null;
             for (const b of branchesToService) {
-              if (!lastServicedBranches.find(wr => wr.head_branch == b)) {
+              if (!completedWorkflowRuns.find(wr => wr.head_branch == b)) {
                 nextBranchToService = b;
                 break;
               }
