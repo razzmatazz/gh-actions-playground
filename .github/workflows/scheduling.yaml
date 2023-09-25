@@ -14,6 +14,10 @@ on:
 
   workflow_dispatch:
 
+  push:
+    branches:
+      - main
+
 jobs:
   scheduler:
 #    if: ${{ !github.event.workflow_run
@@ -52,7 +56,7 @@ jobs:
 
             console.log("branchesToService" + JSON.stringify(branchesToService));
 
-            const XXX =
+            const allCompletedWorkflowRunListResponse =
               await github.rest.actions.listWorkflowRuns({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -61,6 +65,12 @@ jobs:
                 exclude_pull_requests: true,
                 status: "completed,cancelled,failure,neutral,skipped,stale,success,timed_out"
               });
+
+            const allLastServicedBranches =
+              allCompletedWorkflowRunListResponse.data.workflow_runs.map(
+                wr => wr.head_branch);
+
+            console.log("allLastServicedBranches=" + JSON.stringify(allLastServicedBranches));
 
             const completedWorkflowRunListResponse =
               await github.rest.actions.listWorkflowRuns({
@@ -71,18 +81,6 @@ jobs:
                 exclude_pull_requests: true,
                 status: "completed"
               });
-
-            console.log(
-              "keys of completedWorkflowRunListResponse=",
-              JSON.stringify(Object.keys(completedWorkflowRunListResponse)));
-
-            console.log(
-              "keys of completedWorkflowRunListResponse.data=",
-              JSON.stringify(Object.keys(completedWorkflowRunListResponse.data)));
-
-            console.log(
-              "completedWorkflowRunListResponse.data=",
-              JSON.stringify(completedWorkflowRunListResponse.data));
 
             const lastServicedBranches =
               completedWorkflowRunListResponse.data.workflow_runs.map(
