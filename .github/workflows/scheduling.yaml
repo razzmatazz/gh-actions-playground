@@ -36,66 +36,36 @@ jobs:
 
             const workloadWorkflow = "workload.yaml";
 
-            const activeWorkflowRunListResponse = await github.rest.actions.listWorkflowRuns({
+            const inProgressWorkflowRunListResponse = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: workloadWorkflow,
               per_page: 0,
               exclude_pull_requests: true,
-              status: "action_required,in_progress,queued,requested,waiting,pending"
+              status: "in_progress"
             });
 
-            console.log(
-              "activeWorkflowRunListResponse.data.total_count=",
-              activeWorkflowRunListResponse.data.total_count);
+            const queuedWorkflowRunListResponse = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: workloadWorkflow,
+              per_page: 0,
+              exclude_pull_requests: true,
+              status: "queued"
+            });
 
-            if (activeWorkflowRunListResponse.data.total_count > 0) {
-              console.log("terminating: " + activeWorkflowRunListResponse.data.total_count + " runs still active")
+            const activeWorkflowRunCount =
+              inProgressWorkflowRunListResponse.data.total_count
+              + queuedWorkflowRunListResponse.data.total_count;
+
+            console.log("activeWorkflowRunCount=", activeWorkflowRunCount);
+
+            if (activeWorkflowRunCount) {
+              console.log(`terminating: ${activeWorkflowRunCount} `{workloadWorkflow}` workflow runs still active (in_progress+queued)`);
               return 0;
             }
 
             console.log("branchesToService" + JSON.stringify(branchesToService));
-
-            const allCompletedWorkflowRunListResponse =
-              await github.rest.actions.listWorkflowRuns({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                workflow_id: workloadWorkflow,
-                per_page: branchesToService.length,
-                exclude_pull_requests: true,
-                status: ["completed","cancelled","failure","neutral","skipped","stale","success","timed_out"]
-              });
-
-            const allLastServicedBranches =
-              allCompletedWorkflowRunListResponse.data.workflow_runs.map(
-                wr => wr.head_branch);
-
-            console.log("allLastServicedBranches=" + JSON.stringify(allLastServicedBranches));
-
-            console.log("github=" + JSON.stringify(Object.keys(github)));
-            console.log("github.rest=" + JSON.stringify(Object.keys(github.rest)));
-            console.log("github.request=" + JSON.stringify(Object.keys(github.request)));
-
-            console.log("process.env=", JSON.stringify(Object.keys(process.env)));
-
-            const newCompletedWorkflowRunListResponse =
-              await github.request(
-                "GET /repos/razzmatazz/gh-actions-playground/actions/workflows/workload.yaml/runs",
-                {
-                  url: `/repos/razzmatazz/gh-actions-playground/actions/workflows/workload.yaml/runs`
-                      + `?per_page=2`
-                      + `&exclude_pull_requests=true`
-                      + `&status=completed&status=cancelled&status=failure&status=neutral&status=skipped&status=stale&status=success&status=timed_out`
-                }
-              );
-
-            console.log("newCompletedWorkflowRunListResponse.keys=" + JSON.stringify(Object.keys(newCompletedWorkflowRunListResponse)));
-
-            const newLastServicedBranches =
-              newCompletedWorkflowRunListResponse.data.workflow_runs.map(
-                wr => wr.head_branch);
-
-            console.log("newLastServicedBranches=" + JSON.stringify(newLastServicedBranches));
 
             const completedWorkflowRunListResponse =
               await github.rest.actions.listWorkflowRuns({
