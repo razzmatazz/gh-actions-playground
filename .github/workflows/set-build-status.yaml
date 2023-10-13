@@ -1,0 +1,26 @@
+name: Set Build Status
+
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        type: string
+
+  workflow_run:
+    workflows: [Test]
+    types: [completed]
+    branches:
+      - main
+
+jobs:
+  set-build-status:
+    runs-on: ubuntu-latest
+    steps:
+      - if: ${{ github.event.workflow_run }}
+        run: |
+          echo via workflow run
+          echo github.event.workflow_run.name=${{ github.event.workflow_run.name }}
+
+      - if: ${{ github.event.workflow_dispatch }}
+        run: |
+          echo via workflow dispatch

@@ -1,0 +1,20 @@
+on:
+  workflow_run:
+    workflows: [Test, Set Build Status]
+    types: [completed]
+    branches:
+      - main
+      - release-2.5
+      - release-2.6
+
+jobs:
+  test:
+    runs-on: colo-servers
+    steps:
+      - run: |
+          echo via workflow run
+          echo github.event.workflow_run.name=${{ github.event.workflow_run.name }}
+          echo github.event.workflow_run.event=${{ github.event.workflow_run.event }}
+          echo github.event.workflow_run.head_branch=${{ github.event.workflow_run.head_branch }}
+          echo github.event.workflow_run.conclusion=${{ github.event.workflow_run.conclusion }}
+          echo github.event.workflow_run.status=${{ github.event.workflow_run.status }}
