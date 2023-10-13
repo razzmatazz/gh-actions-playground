@@ -11,3 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sleep 10
+
+      - run: echo '{}' > build.json
+
+      - run: cat build.json
+
+      - name: Upload build.json
+        uses: actions/upload-artifact@v3
+        with:
+          name: build.json
+          path: build.json
