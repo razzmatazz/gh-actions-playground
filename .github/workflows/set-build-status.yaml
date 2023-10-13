@@ -20,6 +20,9 @@ jobs:
         run: |
           echo via workflow run
           echo github.event.workflow_run.name=${{ github.event.workflow_run.name }}
+          echo github.event.workflow_run.artifacts_url=${{ github.event.workflow_run.artifacts_url }}
+          echo github.event.workflow_run.head_branch=${{ github.event.workflow_run.head_branch }}
+          echo github.event.workflow_run.head_sha=${{ github.event.workflow_run.head_sha }}
 
       - if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
