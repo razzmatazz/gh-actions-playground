@@ -9,7 +9,7 @@ on:
 
 jobs:
   test:
-    runs-on: colo-servers
+    runs-on: ubuntu-latest
     steps:
       - run: |
           echo via workflow run
