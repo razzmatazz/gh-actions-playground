@@ -16,7 +16,8 @@ jobs:
   set-build-status:
     runs-on: ubuntu-latest
     steps:
-      - if: ${{ github.event_name == 'workflow_run' }}
+      - if: ${{ github.event_name == 'workflow_run'
+                && github.event.workflow_run.path == '.github/workflows/test.yaml' }}
         run: |
           echo via workflow run
           echo github.event.workflow_run.name=${{ github.event.workflow_run.name }}
