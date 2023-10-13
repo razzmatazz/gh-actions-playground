@@ -13,10 +13,10 @@ jobs:
     steps:
       - run: |
           echo via workflow run
-          echo github.event.workflow_run.name=${{ github.event.workflow_run.name }}
-          echo github.event.workflow_run.event=${{ github.event.workflow_run.event }}
-          echo github.event.workflow_run.head_branch=${{ github.event.workflow_run.head_branch }}
-          echo github.event.workflow_run.head_sha=${{ github.event.workflow_run.head_sha }}
-          echo github.event.workflow_run.conclusion=${{ github.event.workflow_run.conclusion }}
-          echo github.event.workflow_run.status=${{ github.event.workflow_run.status }}
-          echo github.event.workflow_run.path=${{ github.event.workflow_run.path }}
+          echo "github.event.workflow_run.name=${{ github.event.workflow_run.name }}"
+          echo "github.event.workflow_run.event=${{ github.event.workflow_run.event }}"
+          echo "github.event.workflow_run.head_branch=${{ github.event.workflow_run.head_branch }}"
+          echo "github.event.workflow_run.head_sha=${{ github.event.workflow_run.head_sha }}"
+          echo "github.event.workflow_run.conclusion=${{ github.event.workflow_run.conclusion }}"
+          echo "github.event.workflow_run.status=${{ github.event.workflow_run.status }}"
+          echo "github.event.workflow_run.path=${{ github.event.workflow_run.path }}"
