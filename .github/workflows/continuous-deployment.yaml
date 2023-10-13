@@ -19,3 +19,4 @@ jobs:
           echo github.event.workflow_run.head_sha=${{ github.event.workflow_run.head_sha }}
           echo github.event.workflow_run.conclusion=${{ github.event.workflow_run.conclusion }}
           echo github.event.workflow_run.status=${{ github.event.workflow_run.status }}
+          echo github.event.workflow_run.path=${{ github.event.workflow_run.path }}

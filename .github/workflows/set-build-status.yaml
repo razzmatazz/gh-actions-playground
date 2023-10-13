@@ -23,8 +23,7 @@ jobs:
           echo github.event.workflow_run.artifacts_url=${{ github.event.workflow_run.artifacts_url }}
           echo github.event.workflow_run.head_branch=${{ github.event.workflow_run.head_branch }}
           echo github.event.workflow_run.head_sha=${{ github.event.workflow_run.head_sha }}
-          echo 'github.event.workflow_run=${{ toJSON(github.event.workflow_run) }}'
-          echo 'github.event.workflow=${{ toJSON(github.event.workflow) }}'
+          echo github.event.workflow_run.path=${{ github.event.workflow_run.path }}
 
       - if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
