@@ -19,7 +19,7 @@ jobs:
         script: |
           const checkRunSha = "${{ github.sha }}";
 
-          const conclusion = (${{ github.job }} % 2 == 0) ? "success" : "failure";
+          const conclusion = (${{ github.run_number }} % 2 == 0) ? "success" : "failure";
 
           const createCheckRunResponse =
             await github.rest.checks.create({
