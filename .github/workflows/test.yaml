@@ -47,7 +47,7 @@ jobs:
           const checkRunId = ${{ needs.init.outputs.check_run_id }};
           const checkRunSha = "${{ github.sha }}";
 
-          if (checkRunId % 2 == 0) {
+          if (${{ github.job }} % 2 == 0) {
             await github.rest.checks.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
