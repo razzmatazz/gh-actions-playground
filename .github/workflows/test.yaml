@@ -19,6 +19,7 @@ jobs:
         script: |
           const checkRunSha = "${{ github.sha }}";
 
+
           const conclusion = (Math.random() > 0.5) ? "success" : "failure";
 
           const createCheckRunResponse =
