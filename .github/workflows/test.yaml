@@ -38,4 +38,15 @@ jobs:
             `an new checkrun #${checkRun.id} was inserted w/conclusion=${conclusion}: `
             + `https://github.com/razzmatazz/gh-actions-playground/runs/${checkRun.id}`);
 
+          const checkRunListResponse = await github.rest.checks.listForRef({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            ref: checkRunSha,
+            check_name: "build-checks:test:main"
+          });
+
+          for (const i in checkRunListResponse.data) {
+            console.log(` - checkRun.Id=${i.id}; checkRun.status=${i.status}; checkRun.name=${i.name}`);
+          }
+
           return checkRun.id
