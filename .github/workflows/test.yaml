@@ -11,14 +11,24 @@ jobs:
   workload:
     runs-on: ubuntu-latest
     steps:
-      - run: sleep 10
+    - uses: actions/github-script@v6
+      with:
+        result-encoding: string
+        script: |
+          const checkRunSha = "${{ github.sha }}";
 
-      - run: echo '{}' > build.json
+          const createCheckRunResponse =
+            await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              status: 'in_progress',
+              name: "build-checks:test:main",
+              head_sha: checkRunSha
+            });
 
-      - run: cat build.json
+          const checkRun = createCheckRunResponse.data;
 
-      - name: Upload build.json
-        uses: actions/upload-artifact@v3
-        with:
-          name: build.json
-          path: build.json
+          console.log(
+            `an new checkrun #${checkRun.id} was inserted: https://github.com/razzmatazz/gh-actions-playground/runs/${checkRun.id}`);
+
+          return checkRun.id
