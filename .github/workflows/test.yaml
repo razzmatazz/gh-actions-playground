@@ -46,6 +46,7 @@ jobs:
           });
 
           for (const i in checkRunListResponse.data) {
+            console.log(JSON.stringify(i));
             console.log(` - checkRun.Id=${i.id}; checkRun.status=${i.status}; checkRun.name=${i.name}`);
           }
 
