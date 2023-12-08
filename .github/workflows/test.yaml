@@ -7,10 +7,13 @@ on:
       - main
 
 jobs:
-  workload:
+  init:
     runs-on: ubuntu-latest
+    outputs:
+      check_run_id: ${{ steps.create_check_run.outputs.result }}
     steps:
-    - uses: actions/github-script@v6
+    - id: create_check_run
+      uses: actions/github-script@v6
       with:
         result-encoding: string
         script: |
@@ -31,20 +34,35 @@ jobs:
             `an new checkrun #${checkRun.id} was inserted: `
             + `https://github.com/razzmatazz/gh-actions-playground/runs/${checkRun.id}`);
 
-          await github.rest.checks.update({
+          return checkRun.id
+
+  failure_or_success:
+    runs-on: ubuntu-latest
+    needs: init
+    steps:
+    - uses: actions/github-script@v6
+      with:
+        result-encoding: string
+        script: |
+          const checkRunId = ${{ needs.init.outputs.check_run_id }};
+          const checkRunSha = "${{ github.sha }}";
+
+          if (${checkRunId} % 2 == 0) {
+            await github.rest.checks.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              check_run_id: checkRun.id,
+              check_run_id: checkRunId,
               status: "completed",
               conclusion: "failure",
-          })
+            })
 
-          await github.rest.checks.update({
+            throw new Exception("failed")
+          } else {
+            await github.rest.checks.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              check_run_id: checkRun.id,
+              check_run_id: checkRunId,
               status: "completed",
               conclusion: "success",
-          })
-
-          return checkRun.id
+            })
+          }
