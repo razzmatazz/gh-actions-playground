@@ -20,14 +20,25 @@ jobs:
             await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              status: 'in_progress',
+              status: "in_progress",
               name: "build-checks:test:main",
               head_sha: checkRunSha
             });
 
           const checkRun = createCheckRunResponse.data;
 
-          console.log(
-            `an new checkrun #${checkRun.id} was inserted: https://github.com/razzmatazz/gh-actions-playground/runs/${checkRun.id}`);
+          await github.rest.checks.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              status: "completed",
+              conclusion: "failure",
+          })
+
+          await github.rest.checks.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              status: "completed",
+              conclusion: "success",
+          })
 
           return checkRun.id
