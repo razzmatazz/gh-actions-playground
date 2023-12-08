@@ -2,10 +2,9 @@ name: Test
 run-name: "Test (${{ github.ref_name }})"
 
 on:
-  workflow_dispatch:
-    inputs:
-      sha:
-        type: string
+  push:
+    branches:
+      - main
 
 jobs:
   workload:
