@@ -56,13 +56,15 @@ jobs:
               conclusion: "failure",
             });
 
-            throw new Exception("failed")
+            throw new Error("failed");
           } else {
-            await github.rest.checks.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              check_run_id: checkRunId,
-              status: "completed",
-              conclusion: "success",
-            });
+            const createCheckRunTwoResponse =
+              await github.rest.checks.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                status: "completed",
+                conclusion: "success",
+                name: "build-checks:test:main",
+                head_sha: checkRunSha
+              });
           }
