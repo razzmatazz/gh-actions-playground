@@ -50,7 +50,7 @@ jobs:
 
           console.log("count=" + checkRunListResponse.data.check_runs.length);
 
-          for (const cr in checkRunListResponse.data.check_runs) {
+          for (const cr of checkRunListResponse.data.check_runs) {
             console.log("keys=" + JSON.stringify(Object.keys(cr)));
             console.log(` - checkRun.Id=${cr.id}; checkRun.status=${cr.status}; checkRun.name=${cr.name}`);
           }
