@@ -32,6 +32,8 @@ jobs:
 
           await sleep(2000);
 
+          console.log(`cr0.keys=${Object.keys(cr0)}`);
+
           console.log(`cr0.id=${cr0.id}; cr0.started_at=${cr0.started_at}; cr0.completed_at=${cr0.completed_at}; cr0.node_id=${cr0.node_id}`);
 
           const cr1 = await github.rest.checks.create({
