@@ -17,26 +17,29 @@ jobs:
       with:
         result-encoding: string
         script: |
+          const sleep = ms => new Promise(r => setTimeout(r, ms));
+
           const checkRunSha = "${{ github.sha }}";
 
+          await github.rest.checks.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            status: "completed",
+            conclusion: "failure",
+            name: "build-checks:test:main",
+            head_sha: checkRunSha
+          });
 
-          const conclusion = (Math.random() > 0.5) ? "success" : "failure";
+          await sleep(2000);
 
-          const createCheckRunResponse =
-            await github.rest.checks.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              status: "completed",
-              conclusion: conclusion,
-              name: "build-checks:test:main",
-              head_sha: checkRunSha
-            });
-
-          const checkRun = createCheckRunResponse.data;
-
-          console.log(
-            `an new checkrun #${checkRun.id} was inserted w/conclusion=${conclusion}: `
-            + `https://github.com/razzmatazz/gh-actions-playground/runs/${checkRun.id}`);
+          await github.rest.checks.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            status: "completed",
+            conclusion: "success",
+            name: "build-checks:test:main",
+            head_sha: checkRunSha
+          });
 
           const checkRunListResponse = await github.rest.checks.listForRef({
             owner: context.repo.owner,
@@ -45,9 +48,4 @@ jobs:
             check_name: "build-checks:test:main"
           });
 
-          for (const i in checkRunListResponse.data) {
-            console.log(JSON.stringify(i));
-            console.log(` - checkRun.Id=${i.id}; checkRun.status=${i.status}; checkRun.name=${i.name}`);
-          }
-
-          return checkRun.id
+          console.log("keys(data)=" + JSON.stringify(Object.keys(checkRunListResponse.data)));
