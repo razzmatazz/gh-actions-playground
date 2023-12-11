@@ -34,7 +34,7 @@ jobs:
 
           console.log(`cr0.keys=${Object.keys(cr0)}`);
 
-          console.log(`cr0.id=${cr0.id}; cr0.started_at=${cr0.started_at}; cr0.completed_at=${cr0.completed_at}; cr0.node_id=${cr0.node_id}`);
+          console.log(`cr0.data.id=${cr0.data.id}; cr0.data.started_at=${cr0.data.started_at}; cr0.data.completed_at=${cr0.data.completed_at}; cr0.data.node_id=${cr0.data.node_id}`);
 
           const cr1 = await github.rest.checks.create({
             owner: context.repo.owner,
@@ -45,7 +45,7 @@ jobs:
             head_sha: checkRunSha
           });
 
-          console.log(`cr1.id=${cr1.id}; cr1.started_at=${cr1.started_at}; cr1.completed_at=${cr1.completed_at}; cr1.node_id=${cr1.node_id}`);
+          console.log(`cr1.data.id=${cr1.data.id}; cr1.data.started_at=${cr1.data.started_at}; cr1.data.completed_at=${cr1.data.completed_at}; cr1.data.node_id=${cr1.data.node_id}`);
 
           await sleep(2000);
 
@@ -58,7 +58,7 @@ jobs:
             head_sha: checkRunSha
           });
 
-          console.log(`cr2.id=${cr2.id}; cr2.started_at=${cr2.started_at}; cr2.completed_at=${cr2.completed_at}; cr2.node_id=${cr2.node_id}`);
+          console.log(`cr2.data.id=${cr2.data.id}; cr2.data.started_at=${cr2.data.started_at}; cr2.data.completed_at=${cr2.data.completed_at}; cr2.data.node_id=${cr2.data.node_id}`);
 
           await sleep(2000);
 
