@@ -2,76 +2,13 @@ name: Test
 run-name: "Test (${{ github.ref_name }})"
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      force:
+        type: boolean
 
 jobs:
   init:
     runs-on: ubuntu-latest
-    outputs:
-      check_run_id: ${{ steps.create_check_run.outputs.result }}
     steps:
-    - id: create_check_run
-      uses: actions/github-script@v6
-      with:
-        result-encoding: string
-        script: |
-          const sleep = ms => new Promise(r => setTimeout(r, ms));
-
-          const checkRunSha = "${{ github.sha }}";
-
-          const cr0 = await github.rest.checks.create({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            status: "completed",
-            conclusion: "success",
-            name: "build-checks:test:main",
-            head_sha: checkRunSha
-          });
-
-          await sleep(2000);
-
-          console.log(`cr0.keys=${Object.keys(cr0)}`);
-
-          console.log(`cr0.data.id=${cr0.data.id}; cr0.data.started_at=${cr0.data.started_at}; cr0.data.completed_at=${cr0.data.completed_at}; cr0.data.node_id=${cr0.data.node_id}`);
-
-          const cr1 = await github.rest.checks.create({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            status: "completed",
-            conclusion: "failure",
-            name: "build-checks:test:main",
-            head_sha: checkRunSha
-          });
-
-          console.log(`cr1.data.id=${cr1.data.id}; cr1.data.started_at=${cr1.data.started_at}; cr1.data.completed_at=${cr1.data.completed_at}; cr1.data.node_id=${cr1.data.node_id}`);
-
-          await sleep(2000);
-
-          const cr2 = await github.rest.checks.create({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            status: "completed",
-            conclusion: "success",
-            name: "build-checks:test:main",
-            head_sha: checkRunSha
-          });
-
-          console.log(`cr2.data.id=${cr2.data.id}; cr2.data.started_at=${cr2.data.started_at}; cr2.data.completed_at=${cr2.data.completed_at}; cr2.data.node_id=${cr2.data.node_id}`);
-
-          await sleep(2000);
-
-          const checkRunListResponse = await github.rest.checks.listForRef({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            ref: checkRunSha,
-          //check_name: "build-checks:test:main"
-          });
-
-          console.log("count=" + checkRunListResponse.data.check_runs.length);
-
-          for (const cr of checkRunListResponse.data.check_runs) {
-            console.log("keys=" + JSON.stringify(Object.keys(cr)));
-            console.log(` - checkRun.Id=${cr.id}; checkRun.status=${cr.status}; checkRun.name=${cr.name}; checkRun.conclusion=${cr.conclusion}`);
-          }
+    - run: echo "force=${{ inputs.force && 'yes' || 'no' }}"
