@@ -2,12 +2,9 @@ name: Test
 
 on:
   workflow_dispatch:
-    inputs:
-      force:
-        type: boolean
 
 jobs:
   init:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "force=${{ inputs.force && 'yes' || 'no' }}"
+    - run: echo ok
