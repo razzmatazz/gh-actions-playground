@@ -9,6 +9,10 @@ inputs:
     description: "comma-separated list of branches"
     required: true
 
+  throttle_mins:
+    type: number
+    default: 60
+
 runs:
   using: "composite"
 
@@ -49,7 +53,7 @@ runs:
             return 0;
           }
 
-          console.log("branchesToService" + JSON.stringify(branchesToService));
+          console.log("branchesToService=" + JSON.stringify(branchesToService));
 
           const completedWorkflowRunListResponse =
             await github.rest.actions.listWorkflowRuns({
@@ -63,20 +67,49 @@ runs:
 
           const completedWorkflowRuns = completedWorkflowRunListResponse.data.workflow_runs;
 
-          let nextBranchToService = null;
-          for (const b of branchesToService) {
-            const lastRunForBranch = completedWorkflowRuns.find(wr => wr.head_branch == b);
-            if (!lastRunForBranch) {
-              nextBranchToService = b;
-              break;
-            } else {
-              console.log("lastRunForBranch: " + JSON.stringify(lastRunForBranch));
-            }
+          let branchBacklog =
+            branchesToService.filter(
+              b => {
+                if (!completedWorkflowRuns.find(wr => wr.head_branch == b)) {
+                  console.log(`branchBacklog(\"${b}\"): OK, workflow was not run for this branch during the last ${branchesToService.length} runs`);
+                  return true;
+                }
+
+                console.log(`branchBacklog(\"${b}\"): workflow has already been run for this branch during the last ${branchesToService.length} runs`);
+                return false;
+              });
+
+          if (completedWorkflowRuns.length) {
+            const lastCompletedRunBranch = completedWorkflowRuns[completedWorkflowRuns.length-1].head_branch;
+            console.log(`branchBacklog(\"${lastCompletedRunBranch}\"): enqueueing in case all branches from branchesToService have been run already`);
+
+            branchBacklog.push(lastCompletedRunBranch);
           }
 
-          if (nextBranchToService == null) {
-            nextBranchToService = completedWorkflowRuns[completedWorkflowRuns.length-1].head_branch;
-          }
+          console.log("branchBacklog=" + JSON.stringify(branchBacklog));
+
+          let branchesEligibleForScheduling =
+            branchBacklog.filter(
+              b => {
+                const lastWfRun = completedWorkflowRuns.find(wr => wr.head_branch == b);
+                const minsSinceLastWfRun = lastWfRun && ((new Date() - new Date(lastWfRun.created_at)) / 1000 / 60);
+                if (!minsSinceLastWfRun) {
+                  console.log(`branchesEligibleForScheduling(\"${b}\"): OK; no recent workflow run`);
+                  return true;
+                }
+
+                if (minsSinceLastWfRun > ${{ inputs.throttle_mins }}) {
+                  console.log(`branchesEligibleForScheduling(\"${b}\"): OK; last workflow run was initiated more than ${{ inputs.throttle_mins }} mins ago (${lastWfRun.created_at})`);
+                  return true;
+                } else {
+                  console.log(`branchesEligibleForScheduling(\"${b}\"): skipping; last workflow run was initiated less than ${{ inputs.throttle_mins }} mins ago (${lastWfRun.created_at})`);
+                  return false;
+                }
+              });
+
+          console.log("branchesEligibleForScheduling=" + JSON.stringify(branchesEligibleForScheduling));
+
+          let nextBranchToService = branchesEligibleForScheduling[0] ?? null;
 
           if (nextBranchToService) {
             console.log(`scheduling a new ${workloadWorkflow} workflow run to service \"${nextBranchToService}\"`);

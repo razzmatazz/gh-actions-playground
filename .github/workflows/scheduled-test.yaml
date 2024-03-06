@@ -22,3 +22,4 @@ jobs:
         with:
           branches: "main,other-main"
           workflow_id: "test.yaml"
+          throttle_mins: 5
