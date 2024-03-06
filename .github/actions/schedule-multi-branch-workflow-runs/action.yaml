@@ -9,6 +9,10 @@ inputs:
     description: "comma-separated list of branches"
     required: true
 
+  throttle_mins:
+    type: number
+    default: 60
+
 runs:
   using: "composite"
 
@@ -63,20 +67,24 @@ runs:
 
           const completedWorkflowRuns = completedWorkflowRunListResponse.data.workflow_runs;
 
-          let nextBranchToService = null;
-          for (const b of branchesToService) {
-            const lastRunForBranch = completedWorkflowRuns.find(wr => wr.head_branch == b);
-            if (!lastRunForBranch) {
-              nextBranchToService = b;
-              break;
-            } else {
-              console.log("lastRunForBranch: " + JSON.stringify(lastRunForBranch));
-            }
+          let branchBacklog =
+            branchesToService.filter(
+              b => !completedWorkflowRuns.find(wr => wr.head_branch == b));
+
+          if (completedWorkflowRuns.length) {
+            const lastCompletedRunBranch = completedWorkflowRuns[completedWorkflowRuns.length-1].head_branch;
+            branchBacklog.push(lastCompletedRunBranch);
           }
 
-          if (nextBranchToService == null) {
-            nextBranchToService = completedWorkflowRuns[completedWorkflowRuns.length-1].head_branch;
-          }
+          let branchesEligibleForScheduling =
+            branchBacklog.filter(
+              b => {
+                const lastWfRun = completedWorkflowRuns.find(wr => wr.head_branch == b);
+                const minsSinceLastWfRun = lastWfRun && ((new Date() - new Date(lastWfRun.created_at)) / 1000 / 60);
+                return !minsSinceLastWfRun || (minsSinceLastWfRun > ${{ inputs.throttle_mins }});
+              });
+
+          let nextBranchToService = branchesEligibleForScheduling[0] ?? null;
 
           if (nextBranchToService) {
             console.log(`scheduling a new ${workloadWorkflow} workflow run to service \"${nextBranchToService}\"`);
