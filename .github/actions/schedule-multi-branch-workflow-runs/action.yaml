@@ -65,7 +65,9 @@ runs:
 
           let nextBranchToService = null;
           for (const b of branchesToService) {
-            if (!completedWorkflowRuns.find(wr => wr.head_branch == b)) {
+            const lastRunForBranch = completedWorkflowRuns.find(wr => wr.head_branch == b);
+            if (!lastRunForBranch) {
+              console.log(lastRunForBranch: " + JSON.stringify(lastRunForBranch));
               nextBranchToService = b;
               break;
             }
