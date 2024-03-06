@@ -20,5 +20,5 @@ jobs:
 
       - uses: ./.github/actions/schedule-multi-branch-workflow-runs
         with:
-          branches: "main"
+          branches: "main,other-main"
           workflow_id: "test.yaml"
