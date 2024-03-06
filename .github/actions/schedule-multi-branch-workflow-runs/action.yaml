@@ -21,7 +21,8 @@ runs:
       with:
         script: |
           const workloadWorkflow = "${{ inputs.workflow_id }}";
-          const branchesToService = "${{ inputs.branches }}".split(',').map(x => x.trim())
+          const branchesToService = "${{ inputs.branches }}".split(',').map(x => x.trim());
+          const throttleMins = ${{ inputs.throttle_mins }};
 
           const inProgressWorkflowRunListResponse = await github.rest.actions.listWorkflowRuns({
             owner: context.repo.owner,
@@ -98,11 +99,11 @@ runs:
                   return true;
                 }
 
-                if (minsSinceLastWfRun > ${{ inputs.throttle_mins }}) {
-                  console.log(`branchesEligibleForScheduling(\"${b}\"): OK; last workflow run was initiated more than ${{ inputs.throttle_mins }} mins ago (${lastWfRun.created_at})`);
+                if (minsSinceLastWfRun > throttleMins) {
+                  console.log(`branchesEligibleForScheduling(\"${b}\"): OK; last workflow run was initiated more than ${throttleMins} mins ago (${lastWfRun.created_at})`);
                   return true;
                 } else {
-                  console.log(`branchesEligibleForScheduling(\"${b}\"): skipping; last workflow run was initiated less than ${{ inputs.throttle_mins }} mins ago (${lastWfRun.created_at})`);
+                  console.log(`branchesEligibleForScheduling(\"${b}\"): skipping; last workflow run was initiated less than ${throttleMins} mins ago (${lastWfRun.created_at})`);
                   return false;
                 }
               });
