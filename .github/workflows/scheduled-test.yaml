@@ -1,0 +1,24 @@
+name: "Scheduled / Benchmarking"
+
+on:
+  workflow_dispatch:
+
+  workflow_run:
+    workflows: [Test]
+    types: [completed]
+
+concurrency:
+  group: "scheduled-test"
+  cancel-in-progress: false
+
+jobs:
+  scheduler:
+    runs-on: colo-servers
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: ./.github/actions/schedule-multi-branch-workflow-runs
+        with:
+          branches: "main"
+          workflow_id: "test.yaml"
