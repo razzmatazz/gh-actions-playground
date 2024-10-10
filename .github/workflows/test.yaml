@@ -10,4 +10,7 @@ jobs:
     - run: id
     - run: sudo apt-get update
 
-    - run: find / -iname "*actions*"
+    - run: find /opt/runner
+
+    - run: ls -lh /opt/runner
+    - run: ls -lh /opt/runner/provisioner
