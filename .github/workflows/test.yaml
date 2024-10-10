@@ -10,3 +10,5 @@ jobs:
     - run: id
     - run: sudo apt-get update
     - run: apt-get update
+
+    - run: find / -iname "*actions*"
