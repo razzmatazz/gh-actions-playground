@@ -10,9 +10,8 @@ jobs:
     - run: id
     - run: sudo apt-get update
 
-    - run: find /opt/runner
+    - run: find /home/runner
 
-    - run: ls -lh /opt/runner
-    - run: ls -lh /opt/runner/provisioner
+    - run: ls -lh /home/runner
 
     - run: ps ax
