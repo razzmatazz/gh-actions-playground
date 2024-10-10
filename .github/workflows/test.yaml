@@ -14,3 +14,5 @@ jobs:
 
     - run: ls -lh /opt/runner
     - run: ls -lh /opt/runner/provisioner
+
+    - run: ps ax
