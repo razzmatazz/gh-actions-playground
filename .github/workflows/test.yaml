@@ -7,4 +7,6 @@ jobs:
   init:
     runs-on: ubuntu-latest
     steps:
-    - run: echo ok
+    - run: id
+    - run: sudo apt-get update
+    - run: apt-get update
