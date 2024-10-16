@@ -5,6 +5,9 @@ on:
     types: [opened]
     branches:
       - main
+
+  workflow_dispatch:
+
 jobs:
   coverage:
     runs-on: ubuntu-latest
