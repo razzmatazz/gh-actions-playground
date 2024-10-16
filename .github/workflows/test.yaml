@@ -1,17 +1,24 @@
 name: Test
 
 on:
-  workflow_dispatch:
-
+  pull_request:
+    types: [opened]
+    branches:
+      - master
 jobs:
-  init:
+  coverage:
     runs-on: ubuntu-latest
     steps:
-    - run: id
-    - run: sudo apt-get update
+      - uses: actions/checkout@v4
 
-    - run: find /home/runner
+      - run: |
+          pip3 install coverage
 
-    - run: ls -lh /home/runner
+      - run: |
+          python3 -m coverage run -m unittest
+          python3 -m coverage xml -o cobertura.xml
 
-    - run: ps ax
+      - uses: 5monkeys/cobertura-action@master
+        with:
+          path: cobertura.xml
+          minimum_coverage: 75
