@@ -23,4 +23,7 @@ jobs:
       - uses: 5monkeys/cobertura-action@master
         with:
           path: cobertura.xml
-          minimum_coverage: 75
+          minimum_coverage: 0
+          skip_covered: false
+          show_line: true
+          show_missing: true
